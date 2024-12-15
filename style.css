@@ -1,0 +1,814 @@
+/* ==========================================================================
+   CSS Variables and Theme Settings - Core design tokens
+   ========================================================================== */
+
+   :root {
+    /* Primary brand colors */
+    --primary-color: #db7d4a;      /* Main orange brand color */
+    --hover-color: #f26e26;        /* Brighter orange for interactions */
+    --text-color: #ffffff;         /* White text for dark backgrounds */
+    --text-dark: #333;             /* Dark gray for main content */
+    
+    /* Gradient definitions */
+    --gradient-purple: linear-gradient(to bottom, #fffefd, #f8f0ec, #faf0eb);
+    --gradient-blue: linear-gradient(to bottom, #fcf0ea, #f7d3bf, #f8c9af);
+    --gradient-orange: linear-gradient(to bottom, #f9c4a7, #fab995, #f9aa7f);
+    
+    /* Utility variables */
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --transition-speed: 0.8s;
+    --transition-timing: ease;
+}
+
+
+/* ==========================================================================
+   Reset and Base Styles - Consistent starting point
+   ========================================================================== */
+
+* {
+    margin: 0;                     /* Remove default margins */
+    padding: 0;                    /* Remove default padding */
+    box-sizing: border-box;        /* Better box model */
+}
+
+html {
+    scroll-behavior: smooth;       /* Smooth scroll for anchors */
+}
+
+body {
+    padding: 20px;                /* Space around page content */
+    background-color: #f5f5f5;    /* Light gray background */
+    min-height: 100vh;            /* Minimum full viewport height */
+    margin: 0;                    /* Remove default margin */
+}
+
+
+/* ==========================================================================
+   Layout and Structure - Main containers
+   ========================================================================== */
+
+.wrapper {
+    position: relative;           /* Create positioning context */
+    width: 100%;                 /* Full width */
+    z-index: 1;                  /* Base stacking context */
+    padding-top: 60px;           /* Space for fixed navbar */
+}
+
+.content {
+    position: relative;          /* Create positioning context */
+    width: 100%;                /* Full width */
+    z-index: 1;                 /* Base stacking context */
+    overflow-x: hidden;         /* Prevent horizontal scroll */
+}
+
+.section {
+    width: 100%;                /* Full width */
+    min-height: 100vh;          /* Minimum full viewport height */
+    margin-bottom: 0rem;        /* Space between sections */
+}
+
+/* Gradient section backgrounds */
+.section.gradient-purple {
+    background: var(--gradient-purple);
+}
+
+.section.gradient-blue {
+    background: var(--gradient-blue);
+}
+
+
+/* ==========================================================================
+   Navigation Bar - Fixed header navigation
+   ========================================================================== */
+
+.navbar {
+    display: flex;               /* Flexbox layout */
+    justify-content: center;     /* Center horizontally */
+    align-items: center;         /* Center vertically */
+    padding: 5px 30px;          /* Inner spacing */
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    position: fixed;            /* Stick to top */
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;             /* Always on top */
+    height: 60px;              /* Fixed height */
+}
+
+.navbar-links {
+    display: flex;             /* Horizontal layout */
+    gap: 20px;                /* Space between links */
+}
+
+.navbar-links .nav-link {
+    color: var(--text-color); /* White text */
+    font-weight: bold;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    transition: background-color var(--transition-speed) var(--transition-timing),
+                color var(--transition-speed) var(--transition-timing);
+}
+
+.navbar-links .nav-link:hover {
+    background-color: var(--hover-color);
+    color: var(--text-color);
+}
+
+
+/* ==========================================================================
+   Hero Section - Main landing area
+   ========================================================================== */
+
+.overlay-image {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    margin-bottom: 5rem;        /* Space after hero section */
+}
+
+.frame-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    transform-origin: center center;
+}
+
+.circle-window {
+    position: absolute;
+    top: 45%;
+    left: 50%;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+    transform: translate(-50%, -50%);
+}
+
+.window-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform-origin: center center;
+}
+
+
+/* ==========================================================================
+   About Section - Personal information and skills
+   ========================================================================== */
+
+.About, .Projects {
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 5rem;         /* Space after sections */
+}
+
+.About h1, .Projects h1 {
+    color: var(--hover-color);
+    margin: 40px 0;
+    font-size: 2.5rem;
+}
+
+/* ==========================================================================
+   About Grid Layout - Two-column content structure
+   ========================================================================== */
+
+   .about-grid {
+    display: grid;                     /* Grid layout */
+    grid-template-columns: 1fr 1fr;    /* Two equal columns */
+    gap: 40px;                         /* Space between items */
+    max-width: 1200px;                 /* Maximum width */
+    margin: 0 auto;                    /* Center horizontally */
+    padding: 0 20px;                   /* Side padding */
+    align-items: center;               /* Center items vertically */
+    margin-bottom: 5rem;               /* Space after grid */
+}
+
+/* Text content styling */
+.about-text {
+    padding: 20px;                     /* Inner spacing */
+    opacity: 0;                        /* Start invisible */
+    animation: fadeIn 1s var(--transition-timing) forwards;
+}
+
+.about-text p {
+    font-size: 1.1rem;                /* Text size */
+    line-height: 1.6;                 /* Line height */
+    color: var(--text-dark);          /* Text color */
+    text-align: left;                 /* Left alignment */
+    margin-bottom: 20px;              /* Space below paragraphs */
+}
+
+
+/* ==========================================================================
+   Skills Section - Expertise and capabilities
+   ========================================================================== */
+
+.skills {
+    text-align: left;                 /* Left alignment */
+    display: flex;                    /* Flexbox layout */
+    flex-direction: column;           /* Stack vertically */
+    gap: 20px;                       /* Space between items */
+    margin-bottom: 5rem;             /* Space after skills */
+}
+
+.skills-section {
+    margin-bottom: 15px;              /* Space below sections */
+    opacity: 0;                       /* Start invisible */
+    animation: slideIn 0.8s var(--transition-timing) forwards;
+    animation-delay: 0.3s;            /* Slight animation delay */
+}
+
+.skills-section h3 {
+    color: var(--hover-color);        /* Orange heading */
+    font-size: 1.1rem;                /* Heading size */
+    margin-bottom: 10px;              /* Space below heading */
+}
+
+.skills-section ul {
+    list-style: none;                 /* Remove bullets */
+    padding-left: 0;                  /* Remove padding */
+}
+
+.skills-section li {
+    font-size: 1rem;                  /* Text size */
+    line-height: 1.5;                 /* Line height */
+    color: var(--text-dark);          /* Text color */
+    margin-bottom: 8px;               /* Space between items */
+    padding-left: 20px;               /* Space for bullet */
+    position: relative;               /* For bullet positioning */
+    opacity: 0;                       /* Start invisible */
+    transform: translateX(-20px);      /* Starting position */
+    animation: slideIn 0.5s var(--transition-timing) forwards;
+}
+
+.skills-section li::before {
+    content: "•";                     /* Bullet character */
+    color: var(--hover-color);        /* Bullet color */
+    position: absolute;               /* Absolute position */
+    left: 0;                          /* Align with text */
+}
+
+/* Staggered animations for list items */
+.skills-section li:nth-child(1) { animation-delay: 0.4s; }
+.skills-section li:nth-child(2) { animation-delay: 0.6s; }
+.skills-section li:nth-child(3) { animation-delay: 0.8s; }
+
+
+/* ==========================================================================
+   Flip Card - Interactive profile card
+   ========================================================================== */
+
+.about-image {
+    width: 100%;                      /* Full width */
+    max-width: 600px;                 /* Maximum width */
+    justify-self: end;                /* Align to end */
+    perspective: 1000px;              /* 3D effect depth */
+    overflow: visible;                /* Show overflow */
+    margin-bottom: 5rem;              /* Space after card */
+}
+
+.flip-card {
+    width: 100%;                      /* Full width */
+    height: 500px;                    /* Fixed height */
+    cursor: pointer;                  /* Show pointer */
+    transition: all var(--transition-speed) var(--transition-timing);
+    transform-origin: center left;    /* Flip origin */
+}
+
+.flip-card-inner {
+    position: relative;               /* Relative position */
+    width: 100%;                      /* Full width */
+    height: 100%;                     /* Full height */
+    text-align: center;               /* Center text */
+    transition: transform var(--transition-speed);
+    transform-style: preserve-3d;     /* 3D effect */
+}
+
+.flip-card:hover {
+    width: 120%;                      /* Expand on hover */
+}
+
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);       /* Flip on hover */
+}
+
+/* Card faces */
+.flip-card-front, 
+.flip-card-back {
+    position: absolute;               /* Absolute position */
+    width: 100%;                      /* Full width */
+    height: 100%;                     /* Full height */
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+    border-radius: 10px;              /* Rounded corners */
+    overflow: hidden;                 /* Hide overflow */
+    background-color: transparent;
+}
+
+.flip-card-back {
+    transform: rotateY(180deg);       /* Back face rotation */
+}
+
+/* Card images */
+.flip-card-front img,
+.flip-card-back img {
+    width: 100%;                      /* Full width */
+    height: 100%;                     /* Full height */
+    border-radius: 10px;              /* Rounded corners */
+    box-shadow: 0 4px 8px var(--shadow-color);
+    transition: all var(--transition-speed) var(--transition-timing);
+}
+
+.flip-card-front img {
+    object-fit: cover;                /* Cover container */
+}
+
+.flip-card-back img {
+    object-fit: contain;              /* Contain within */
+}
+
+
+/* ==========================================================================
+   Projects Section - Portfolio showcase
+   ========================================================================== */
+
+.Projects {
+    text-align: center;               /* Center text */
+    font-size: 1.5rem;                /* Text size */
+    margin: 0;                        /* Reset margin */
+    margin-top: 0px;                  /* Reset top margin */
+    color: #db7d4a;                   /* Orange color */
+}
+
+.destination-showcase {
+    max-width: 800px;                 /* Maximum width */
+    margin: 2rem auto;                /* Center and space */
+    padding: 0;                       /* No padding */
+    height: 400px;                    /* Fixed height */
+    border-radius: 30px;              /* Rounded corners */
+    overflow: hidden;                 /* Hide overflow */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    position: relative;               /* Relative position */
+    background: transparent;          /* Transparent background */
+    margin-bottom: 5rem;              /* Space after showcase */
+}
+
+/* ==========================================================================
+   Featured Project Section - Main project display
+   ========================================================================== */
+
+   .featured-destination {
+    width: 100%;                      /* Full width */
+    height: 100%;                     /* Full height */
+    position: relative;               /* Relative position */
+    margin-bottom: 5rem;              /* Space after section */
+}
+
+.main-image {
+    width: 100%;                      /* Full width */
+    height: 100%;                     /* Full height */
+    object-fit: scale-down;           /* Scale image */
+    object-position: center;          /* Center image */
+    display: block;                   /* Block display */
+    transition: opacity 0.3s ease;    /* Smooth opacity change */
+}
+
+
+/* ==========================================================================
+   Button Container - Project link button
+   ========================================================================== */
+
+.featured-content {
+    position: absolute;               /* Absolute position */
+    top: 90%;                        /* From top */
+    left: 5%;                        /* From left */
+    transform: translateY(-50%);      /* Center vertically */
+    z-index: 2;                      /* Stack order */
+    max-width: 250px;                /* Maximum width */
+    padding: 1.5rem;                 /* Inner spacing */
+}
+
+.discover-btn {
+    padding: 0.4rem 1rem;            /* Button padding */
+    background: #db7d4a;             /* Orange background */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;             /* Rounded corners */
+    backdrop-filter: blur(5px);      /* Blur effect */
+    color: white;                    /* Text color */
+    font-size: 0.9rem;              /* Text size */
+    cursor: pointer;                /* Pointer cursor */
+    transition: all 0.3s ease;      /* Smooth transition */
+    text-transform: uppercase;      /* Uppercase text */
+    letter-spacing: 1px;           /* Letter spacing */
+}
+
+.discover-btn:hover {
+    background: #f26e26;           /* Hover background */
+    color: white;                  /* Hover text color */
+    border-color: transparent;     /* Hide border */
+}
+
+
+/* ==========================================================================
+   Thumbnail Cards Section - Project previews
+   ========================================================================== */
+
+.location-cards {
+    position: absolute;            /* Absolute position */
+    bottom: 2.5rem;               /* From bottom */
+    right: 2rem;                  /* From right */
+    display: flex;                /* Flexbox layout */
+    gap: 0.5rem;                  /* Space between cards */
+    z-index: 3;                   /* Stack order */
+    max-width: 500px;             /* Maximum width */
+    overflow-x: auto;             /* Horizontal scroll */
+    padding: 0.5rem;              /* Inner spacing */
+    scroll-behavior: smooth;      /* Smooth scroll */
+    scrollbar-width: none;        /* Hide scrollbar */
+    -ms-overflow-style: none;     /* IE scrollbar */
+    margin-bottom: 5rem;          /* Space after cards */
+}
+
+.location-cards::-webkit-scrollbar {
+    display: none;                /* Hide scrollbar */
+}
+
+.location-card {
+    min-width: 130px;             /* Minimum width */
+    height: 65px;                 /* Fixed height */
+    position: relative;           /* Relative position */
+    cursor: pointer;             /* Pointer cursor */
+    overflow: hidden;            /* Hide overflow */
+    border-radius: 8px;          /* Rounded corners */
+    transition: all 0.3s ease;   /* Smooth transition */
+    flex-shrink: 0;             /* Prevent shrinking */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.location-card img {
+    width: 100%;                 /* Full width */
+    height: 100%;                /* Full height */
+    object-fit: cover;           /* Cover container */
+    transition: transform 0.3s ease;
+}
+
+.location-card:hover img {
+    transform: scale(1.1);       /* Scale on hover */
+}
+
+.card-content {
+    position: absolute;          /* Absolute position */
+    bottom: 0;                  /* At bottom */
+    left: 0;                    /* From left */
+    right: 0;                   /* From right */
+    padding: 0.8rem;            /* Inner spacing */
+    background: linear-gradient(transparent, rgba(0,0,0,0.9));
+    color: white;               /* Text color */
+}
+
+.card-content h3 {
+    font-size: 0.9rem;          /* Text size */
+    margin: 0.2rem 0 0 0;       /* Spacing */
+    letter-spacing: 1px;        /* Letter spacing */
+}
+
+.location-card.active {
+    border: 2px solid #db7d4a;  /* Active border */
+    transform: scale(1.02);     /* Scale up */
+}
+
+
+/* ==========================================================================
+   Navigation Controls - Scroll buttons
+   ========================================================================== */
+
+.scroll-buttons {
+    position: absolute;          /* Absolute position */
+    bottom: 1.5rem;             /* From bottom */
+    right: calc(2rem + 500px);  /* From right */
+    display: flex;              /* Flexbox layout */
+    gap: 0.5rem;                /* Space between */
+    z-index: 4;                 /* Stack order */
+}
+
+.scroll-btn {
+    width: 1px;                 /* Button width */
+    height: 1px;                /* Button height */
+    border-radius: 50%;         /* Circular shape */
+    background: rgba(255, 255, 255, 0.2);
+    border: none;               /* No border */
+    color: transparent;         /* Hide text */
+    cursor: pointer;           /* Pointer cursor */
+    display: flex;             /* Flexbox layout */
+    align-items: center;       /* Center vertically */
+    justify-content: center;   /* Center horizontally */
+    transition: background 0.3s ease;
+}
+
+.scroll-btn:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+
+/* ==========================================================================
+   Navigation Dots - Project indicators
+   ========================================================================== */
+
+.nav-dots {
+    position: absolute;         /* Absolute position */
+    bottom: 1.5rem;            /* From bottom */
+    left: 50%;                 /* Center horizontally */
+    transform: translateX(-50%);
+    display: flex;             /* Flexbox layout */
+    gap: 0.5rem;               /* Space between dots */
+    background: rgba(0,0,0,0.3);
+    padding: 0.4rem 0.8rem;    /* Inner spacing */
+    border-radius: 20px;       /* Rounded corners */
+}
+
+.nav-dot {
+    width: 8px;                /* Dot size */
+    height: 8px;               /* Dot size */
+    border-radius: 50%;        /* Circular shape */
+    background: rgba(255,255,255,0.5);
+    cursor: pointer;           /* Pointer cursor */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.nav-dot.active {
+    background: #f26e26;       /* Active color */
+    transform: scale(1.2);     /* Scale up */
+}
+
+/* ==========================================================================
+   Contact Form Section - Main container styling for the contact form
+   This section handles the overall form layout and appearance
+   ========================================================================== */
+
+   .contact-form {
+    background: rgba(255, 255, 255, 0.95);  /* Semi-transparent white background */
+    border-radius: 20px;                    /* Rounded corners for modern look */
+    padding: 2.5rem;                        /* Generous internal spacing */
+    width: 100%;                            /* Full width of container */
+    max-width: 600px;                       /* Maximum width constraint */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);  /* Subtle elevation shadow */
+    margin: 5rem auto;                      /* Center horizontally with space above/below */
+    animation: fadeIn 1s ease-in-out forwards;  /* Fade in animation */
+}
+
+/* Contact form heading style */
+.contact-form h2 {
+    color: var(--primary-color);            /* Theme color for heading */
+    text-align: center;                     /* Center align text */
+    margin-bottom: 2rem;                    /* Space below heading */
+    font-size: 2.5rem;                      /* Large text size */
+    font-weight: 600;                       /* Semi-bold weight */
+}
+
+/* Social icons container layout */
+.contact-options {
+    display: flex;                          /* Horizontal flex layout */
+    justify-content: center;                /* Center icons horizontally */
+    gap: 1.5rem;                           /* Space between icons */
+    margin-bottom: 2.5rem;                 /* Space below icon section */
+}
+
+/* Individual social icon styling */
+.contact-icon {
+    width: 60px;                           /* Fixed icon width */
+    height: 60px;                          /* Fixed icon height */
+    display: flex;                         /* Center icon content */
+    align-items: center;                   /* Vertically center */
+    justify-content: center;               /* Horizontally center */
+    background: var(--gradient-purple);    /* Gradient background */
+    border-radius: 50%;                    /* Circular shape */
+    color: var(--text-color);             /* Icon color */
+    font-size: 1.5rem;                    /* Icon size */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;  /* Smooth transitions */
+    text-decoration: none;                /* Remove underline */
+}
+
+/* Icon hover effects */
+.contact-icon:hover {
+    transform: translateY(-5px);           /* Lift effect */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);  /* Enhanced shadow */
+    background: var(--gradient-orange);    /* Change gradient on hover */
+}
+
+/* Icon color and transitions */
+.contact-icon i {
+    transition: transform 0.3s ease;       /* Smooth icon transition */
+    color: #db7d4a;                       /* Icon color */
+}
+
+/* Icon hover animation */
+.contact-icon:hover i {
+    transform: scale(1.1);                /* Slightly enlarge icon */
+}
+
+/* Form container layout */
+#contactForm {
+    display: flex;                        /* Vertical flex layout */
+    flex-direction: column;               /* Stack elements */
+    gap: 1.25rem;                        /* Space between elements */
+}
+
+/* Input group container */
+.input-group {
+    position: relative;                   /* For icon positioning */
+}
+
+/* Input icon styling */
+.input-icon {
+    position: absolute;                   /* Position relative to input */
+    left: 1rem;                          /* Space from left */
+    top: 50%;                            /* Center vertically */
+    transform: translateY(-50%);          /* Perfect vertical centering */
+    color: var(--primary-color);         /* Theme color */
+    opacity: 0.7;                        /* Slightly transparent */
+    pointer-events: none;                /* Prevent icon interaction */
+}
+
+/* Textarea icon position adjustment */
+.input-group textarea ~ .input-icon {
+    top: 1.5rem;                         /* Adjust for textarea */
+    transform: none;                     /* Remove vertical centering */
+}
+
+/* ==========================================================================
+   Form Inputs - Styling for text inputs and textarea elements
+   These styles create consistent, accessible form fields with visual feedback
+   ========================================================================== */
+
+/* Base input and textarea styles */
+#contactForm input,
+#contactForm textarea {
+    width: 100%;                           /* Full width of container */
+    padding: 1rem 1rem 1rem 3rem;          /* Space for text and icon */
+    border: 2px solid #eee;                /* Light border */
+    border-radius: 12px;                   /* Rounded corners */
+    font-size: 1rem;                       /* Standard text size */
+    transition: border-color 0.3s ease,     /* Smooth border transition */
+                box-shadow 0.3s ease;       /* Smooth shadow transition */
+    background: rgba(255, 255, 255, 0.9);  /* Slightly transparent background */
+}
+
+/* Textarea specific adjustments */
+#contactForm textarea {
+    padding-top: 1rem;                     /* Space at top for comfort */
+    resize: vertical;                      /* Allow vertical resizing only */
+    min-height: 120px;                     /* Minimum height */
+}
+
+/* Focus states for inputs and textarea */
+#contactForm input:focus,
+#contactForm textarea:focus {
+    outline: none;                         /* Remove default focus outline */
+    border-color: var(--primary-color);    /* Themed border color */
+    box-shadow: 0 0 0 4px rgba(var(--primary-color-rgb), 0.1);  /* Subtle focus ring */
+}
+
+/* ==========================================================================
+   Submit Button - Styling for the form submission button
+   Creates an engaging, interactive button with clear hover states
+   ========================================================================== */
+
+/* Base button styles */
+#contactForm button {
+    display: flex;                         /* Flex for icon alignment */
+    align-items: center;                   /* Center items vertically */
+    justify-content: center;               /* Center items horizontally */
+    gap: 0.5rem;                          /* Space between text and icon */
+    background: var(--primary-color);      /* Theme color background */
+    color: white;                         /* White text */
+    padding: 1rem 2rem;                   /* Comfortable padding */
+    border: none;                         /* Remove border */
+    border-radius: 12px;                  /* Rounded corners */
+    font-size: 1rem;                      /* Standard text size */
+    font-weight: 600;                     /* Semi-bold weight */
+    cursor: pointer;                      /* Hand cursor on hover */
+    transition: background 0.3s ease,      /* Smooth background transition */
+                transform 0.3s ease;       /* Smooth movement transition */
+}
+
+/* Button icon styles */
+#contactForm button i {
+    font-size: 1.2rem;                    /* Slightly larger than text */
+    transition: transform 0.3s ease;       /* Smooth icon animation */
+}
+
+/* Button hover state */
+#contactForm button:hover {
+    background: var(--hover-color);        /* Darker background on hover */
+    transform: translateY(-2px);           /* Slight lift effect */
+}
+
+/* Button icon hover animation */
+#contactForm button:hover i {
+    transform: translateX(4px);            /* Slide icon right on hover */
+}
+
+/* ==========================================================================
+   Media Queries - Responsive design adjustments for different screen sizes
+   Ensures the form remains usable and attractive across all devices
+   ========================================================================== */
+
+/* Tablet Styles */
+@media screen and (max-width: 768px) {
+    /* Contact form adjustments */
+    .contact-form {
+        padding: 2rem;                     /* Reduced padding */
+        margin: 1rem;                      /* Reduced margin */
+    }
+
+    .contact-form h2 {
+        font-size: 2rem;                   /* Smaller heading */
+    }
+
+    .contact-icon {
+        width: 50px;                       /* Smaller icons */
+        height: 50px;
+        font-size: 1.25rem;                /* Smaller icon size */
+    }
+
+    /* Other responsive adjustments */
+    .navbar {
+        padding: 5px 15px;                 /* Reduced navbar padding */
+        height: 50px;                      /* Smaller navbar height */
+    }
+
+    .content .section {
+        height: auto;                      /* Flexible height */
+        min-height: 100vh;                 /* Minimum viewport height */
+        padding: 20px 0;                   /* Vertical padding */
+    }
+
+    /* Typography adjustments */
+    .about-text p,
+    .skills-section li {
+        text-align: center;                /* Center align text */
+        font-size: 1rem;                   /* Standard font size */
+    }
+}
+
+/* Mobile Styles */
+@media screen and (max-width: 480px) {
+    /* Contact form adjustments */
+    .contact-form {
+        padding: 1.5rem;                   /* Further reduced padding */
+    }
+
+    .contact-form h2 {
+        font-size: 1.75rem;                /* Smaller heading */
+    }
+
+    .contact-options {
+        gap: 1rem;                         /* Reduced icon spacing */
+    }
+
+    .contact-icon {
+        width: 45px;                       /* Even smaller icons */
+        height: 45px;
+        font-size: 1.1rem;                 /* Smaller icon size */
+    }
+
+    /* Form input adjustments */
+    #contactForm input,
+    #contactForm textarea {
+        padding: 0.8rem 0.8rem 0.8rem 2.5rem;  /* Adjusted padding */
+    }
+}
+
+/* ==========================================================================
+   Animation Keyframes - Smooth transitions and animations
+   Defines the animations used throughout the contact form
+   ========================================================================== */
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from { 
+        opacity: 0;                        /* Start invisible */
+        transform: translateY(20px);        /* Start below final position */
+    }
+    to { 
+        opacity: 1;                        /* End fully visible */
+        transform: translateY(0);           /* End at natural position */
+    }
+}
+
+/* Slide In Animation */
+@keyframes slideIn {
+    from { 
+        opacity: 0;                        /* Start invisible */
+        transform: translateX(-30px);       /* Start left of final position */
+    }
+    to { 
+        opacity: 1;                        /* End fully visible */
+        transform: translateX(0);           /* End at natural position */
+    }
+}

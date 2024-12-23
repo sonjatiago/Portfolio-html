@@ -37,144 +37,28 @@ window.addEventListener("load", () => {
 /* ==========================================================================
    Projects - Interactive Images Carousel
    ========================================================================== */
-// Project data
-const destinations = [
-    {
-        id: 1,
-        image: 'images/img1.png',
-        link: 'https://project1.com'
-    },
-    {
-        id: 2,
-        image: 'images/img2.png',
-        link: 'https://project2.com'
-    },
-    {
-        id: 3,
-        image: 'images/img3.png',
-        link: 'https://project3.com'
-    },
-    {
-        id: 4,
-        image: 'images/img4.png',
-        link: 'https://project4.com'
-    },
-    {
-        id: 5,
-        image: 'images/img5.png',
-        link: 'https://project5.com'
-    },
-    {
-        id: 6,
-        image: 'images/img6.png',
-        link: 'https://project6.com'
-    }
-];
+   document.addEventListener('DOMContentLoaded', () => {
+    const seeMoreButton = document.querySelector('.see-more-btn');
+    const seeLessButton = document.querySelector('.see-less-btn');
+    const hiddenCards = document.querySelectorAll('.hidden');
 
-document.addEventListener('DOMContentLoaded', () => {
-    const featuredDestination = document.querySelector('.featured-destination');
-    const locationCards = document.querySelector('.location-cards');
-    const navDots = document.querySelector('.nav-dots');
-    const prevBtn = document.querySelector('.prev-btn');
-    const nextBtn = document.querySelector('.next-btn');
-    let currentIndex = 0;
-
-    // Create navigation dots
-    destinations.forEach((_, index) => {
-        const dot = document.createElement('div');
-        dot.className = `nav-dot ${index === 0 ? 'active' : ''}`;
-        dot.addEventListener('click', () => updateDestination(index));
-        navDots.appendChild(dot);
-    });
-
-    // Update the featured destination
-    function updateDestination(index) {
-        const destination = destinations[index];
-        
-        featuredDestination.style.opacity = '0';
-        
-        setTimeout(() => {
-            // Update main content
-            featuredDestination.querySelector('.main-image').src = destination.image;
-            featuredDestination.querySelector('.discover-btn').onclick = () => window.open(destination.link, '_blank');
-
-            // Update active states
-            document.querySelectorAll('.location-card').forEach((card, i) => {
-                card.classList.toggle('active', i === index);
-            });
-            document.querySelectorAll('.nav-dot').forEach((dot, i) => {
-                dot.classList.toggle('active', i === index);
-            });
-
-            // Scroll card into view
-            const activeCard = document.querySelectorAll('.location-card')[index];
-            activeCard.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-
-            featuredDestination.style.opacity = '1';
-            currentIndex = index;
-        }, 300);
-    }
-
-    // Handle card scrolling
-    const scrollAmount = 160; // Card width + gap
-
-    prevBtn.addEventListener('click', () => {
-        locationCards.scrollBy({
-            left: -scrollAmount,
-            behavior: 'smooth'
+    if (seeMoreButton && seeLessButton) {
+        // Show hidden projects on "See More" click
+        seeMoreButton.addEventListener('click', () => {
+            hiddenCards.forEach(card => card.classList.remove('hidden')); // Show all hidden cards
+            seeMoreButton.classList.add('hidden'); // Hide "See More"
+            seeLessButton.classList.remove('hidden'); // Show "See Less"
         });
-    });
 
-    nextBtn.addEventListener('click', () => {
-        locationCards.scrollBy({
-            left: scrollAmount,
-            behavior: 'smooth'
+        // Hide additional projects on "See Less" click
+        seeLessButton.addEventListener('click', () => {
+            hiddenCards.forEach(card => card.classList.add('hidden')); // Re-hide the cards
+            seeLessButton.classList.add('hidden'); // Hide "See Less"
+            seeMoreButton.classList.remove('hidden'); // Show "See More"
         });
-    });
-
-    // Update scroll button states
-    function updateScrollButtons() {
-        const { scrollLeft, scrollWidth, clientWidth } = locationCards;
-        prevBtn.style.opacity = scrollLeft > 0 ? '1' : '0.5';
-        nextBtn.style.opacity = scrollLeft < scrollWidth - clientWidth ? '1' : '0.5';
     }
-
-    locationCards.addEventListener('scroll', updateScrollButtons);
-    
-    // Add click handlers to cards
-    document.querySelectorAll('.location-card').forEach((card, index) => {
-        card.addEventListener('click', () => updateDestination(index));
-    });
-
-
-    // Pause auto-rotation on hover
-    featuredDestination.addEventListener('mouseenter', () => clearInterval(autoRotate));
-    locationCards.addEventListener('mouseenter', () => clearInterval(autoRotate));
-    
-    // Resume auto-rotation on mouse leave
-    featuredDestination.addEventListener('mouseleave', startAutoRotate);
-    locationCards.addEventListener('mouseleave', startAutoRotate);
-
-    function startAutoRotate() {
-        if (autoRotate) clearInterval(autoRotate);
-        autoRotate = setInterval(() => {
-            const nextIndex = (currentIndex + 1) % destinations.length;
-            updateDestination(nextIndex);
-        }, 5000);
-    }
-
-
-    // Keyboard navigation
-    document.addEventListener('keydown', (event) => {
-        if (event.key === 'ArrowLeft') {
-            const prevIndex = (currentIndex - 1 + destinations.length) % destinations.length;
-            updateDestination(prevIndex);
-        } else if (event.key === 'ArrowRight') {
-            const nextIndex = (currentIndex + 1) % destinations.length;
-            updateDestination(nextIndex);
-        }
-    });
 });
+
 
 /* ==========================================================================
    Contact Section Styles - Additional styles for the contact form section
